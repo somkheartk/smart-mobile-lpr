@@ -16,6 +16,13 @@ class _LoginPageState extends State<LoginPage> {
   bool _obscurePassword = true;
 
   @override
+  initState() {
+    super.initState();
+    _usernameController.text = 'admin';
+    _passwordController.text = 'admin123';
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
