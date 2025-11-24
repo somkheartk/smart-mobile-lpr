@@ -6,46 +6,21 @@
 ![Dart](https://img.shields.io/badge/Dart-3.9.2-0175C2?logo=dart)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
+---
+
 ## 📱 Screenshots
 
-<div align="center">
-  <table>
-    <tr>
-      <td align="center">
-        <img src="screenshots/login.png" width="200" alt="Login"/><br/>
-        <b>Login Page</b><br/>
-        <sub>หน้าเข้าสู่ระบบ</sub>
-      </td>
-      <td align="center">
-        <img src="screenshots/dashboard.png" width="200" alt="Dashboard"/><br/>
-        <b>Dashboard</b><br/>
-        <sub>แสดงสถิติรวม</sub>
-      </td>
-      <td align="center">
-        <img src="screenshots/camera.png" width="200" alt="Camera"/><br/>
-        <b>Camera Scanner</b><br/>
-        <sub>สแกนป้ายทะเบียน</sub>
-      </td>
-    </tr>
-    <tr>
-      <td align="center">
-        <img src="screenshots/vehicle_list.png" width="200" alt="Vehicle List"/><br/>
-        <b>Vehicle List</b><br/>
-        <sub>รายการรถทั้งหมด</sub>
-      </td>
-      <td align="center">
-        <img src="screenshots/statistics.png" width="200" alt="Statistics"/><br/>
-        <b>Statistics</b><br/>
-        <sub>สถิติโดยละเอียด</sub>
-      </td>
-      <td align="center">
-        <img src="screenshots/settings.png" width="200" alt="Settings"/><br/>
-        <b>Settings</b><br/>
-        <sub>การตั้งค่า</sub>
-      </td>
-    </tr>
-  </table>
-</div>
+| Login | Dashboard | Camera |
+|:---:|:---:|:---:|
+| ![Login](screenshots/login.png) | ![Dashboard](screenshots/dashboard.png) | ![Camera](screenshots/camera.png) |
+| หน้าเข้าสู่ระบบ | แสดงสถิติรวม | สแกนป้ายทะเบียน |
+
+| Vehicle List | Statistics | Settings |
+|:---:|:---:|:---:|
+| ![Vehicle List](screenshots/vehicle_list.png) | ![Statistics](screenshots/statistics.png) | ![Settings](screenshots/settings.png) |
+| รายการรถทั้งหมด | สถิติโดยละเอียด | การตั้งค่า |
+
+---
 
 ## ✨ Features
 
