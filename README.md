@@ -1,1267 +1,306 @@
-# 🚗 Smart Mobile LPR (License Plate Recognition)
+# 🚗 Smart Mobile LPR
 
-ระบบตรวจจับและติดตามป้ายทะเบียนรถอัจฉริยะ พัฒนาด้วย Flutter สำหรับการทำงานแบบ Cross-Platform
+**ระบบตรวจจับและติดตามป้ายทะเบียนรถอัจฉริยะ**  
+แอปพลิเคชันสำหรับตรวจจับและบันทึกป้ายทะเบียนรถ พัฒนาด้วย Flutter รองรับหลายแพลตฟอร์ม
 
 ![Flutter](https://img.shields.io/badge/Flutter-3.9.2-02569B?logo=flutter)
 ![Dart](https://img.shields.io/badge/Dart-3.9.2-0175C2?logo=dart)
 ![License](https://img.shields.io/badge/License-MIT-green)
-![Platform](https://img.shields.io/badge/Platform-Android%20%7C%20iOS%20%7C%20Web%20%7C%20Windows-blue)
-![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
+![Platform](https://img.shields.io/badge/Platform-Android%20%7C%20iOS%20%7C%20Web%20%7C%20Desktop-blue)
 
 ---
 
-## 📖 Table of Contents
+## 📑 สารบัญ
 
-- [Features](#-features)
-- [Architecture](#️-architecture)
-- [Technologies](#️-technologies)
-- [Getting Started](#-getting-started)
-- [API Documentation](#-api-documentation)
-- [Development Guide](#-development-guide)
-- [Testing](#-testing)
-- [Build & Deployment](#-build--deployment)
-- [Troubleshooting](#-troubleshooting)
-- [Performance Tips](#-performance-tips)
-- [Security](#-security)
-- [FAQ](#-faq)
-- [Contributing](#-contributing)
+- [เกี่ยวกับโปรเจกต์](#-เกี่ยวกับโปรเจกต์)
+- [ฟีเจอร์หลัก](#-ฟีเจอร์หลัก)
+- [เริ่มต้นใช้งานอย่างรวดเร็ว](#-เริ่มต้นใช้งานอย่างรวดเร็ว)
+- [โครงสร้างโปรเจกต์](#-โครงสร้างโปรเจกต์)
+- [เทคโนโลยีที่ใช้](#-เทคโนโลยีที่ใช้)
+- [เอกสารเพิ่มเติม](#-เอกสารเพิ่มเติม)
+- [การสนับสนุน](#-การสนับสนุน)
 - [License](#-license)
 
 ---
 
-## 📱 Screenshots
+## 🎯 เกี่ยวกับโปรเจกต์
 
-> **Note**: Screenshots will be added after the application is fully tested on various platforms. For now, you can run the application locally to see the UI in action.
+Smart Mobile LPR เป็นแอปพลิเคชันสำหรับตรวจจับและจัดการข้อมูลป้ายทะเบียนรถยนต์ ออกแบบมาเพื่อ:
 
-| Login | Dashboard | Camera |
-|:---:|:---:|:---:|
-| ![Login](screenshots/login.png) | ![Dashboard](screenshots/dashboard.png) | ![Camera](screenshots/camera.png) |
-| หน้าเข้าสู่ระบบ | แสดงสถิติรวม | สแกนป้ายทะเบียน |
+- ✅ ตรวจจับป้ายทะเบียนรถอัตโนมัติผ่านกล้อง
+- ✅ บันทึกและจัดการข้อมูลรถที่ตรวจพบ
+- ✅ แสดงสถิติและรายงานแบบเรียลไทม์
+- ✅ รองรับการใช้งานบนหลายแพลตฟอร์ม (Android, iOS, Web, Desktop)
+- ✅ ติดตามและแจ้งเตือนรถที่มีความผิด
 
-| Vehicle List | Statistics | Settings |
-|:---:|:---:|:---:|
-| ![Vehicle List](screenshots/vehicle_list.png) | ![Statistics](screenshots/statistics.png) | ![Settings](screenshots/settings.png) |
-| รายการรถทั้งหมด | สถิติโดยละเอียด | การตั้งค่า |
+> **หมายเหตุ:** แอปพลิเคชันปัจจุบันใช้ข้อมูลจำลอง (Mock Data) สำหรับการทดสอบและสาธิต
 
 ---
 
-## ✨ Features
+## ✨ ฟีเจอร์หลัก
 
-### 🔐 Authentication
-- ✅ Login/Logout System
-- ✅ Session Management
-- ✅ User Profile
+### 🔐 ระบบเข้าสู่ระบบ
+- เข้าสู่ระบบด้วย Username/Password
+- จัดการ Session และข้อมูลผู้ใช้
+- ออกจากระบบอย่างปลอดภัย
 
-### 📊 Dashboard & Analytics
-- ✅ Real-time Statistics
-- ✅ Interactive Charts (Line, Bar, Pie)
-- ✅ Today/Monthly Detection Count
-- ✅ Operator Performance Tracking
-- ✅ Violation Type Analysis
+### 📊 Dashboard
+- แสดงสถิติแบบเรียลไทม์
+- กราฟและชาร์ตแบบ Interactive
+- สรุปข้อมูลการตรวจจับรายวัน/รายเดือน
+- ติดตามประสิทธิภาพของเจ้าหน้าที่
 
-### 📷 Camera & Scanning
-- ✅ Live Camera Preview
-- ✅ Real-time Plate Detection (Mock)
-- ✅ Vehicle Type Recognition
-- ✅ Auto-save Detection Results
+### 📷 กล้องสแกนป้ายทะเบียน
+- แสดงภาพจากกล้องแบบสด
+- ตรวจจับป้ายทะเบียนอัตโนมัติ
+- บันทึกข้อมูลรถที่ตรวจพบ
+- รองรับหลายประเภทรถ (รถเก๋ง, รถกระบะ, รถบรรทุก, มอเตอร์ไซค์)
 
-### 🚗 Vehicle Management
-- ✅ Vehicle List with Search
-- ✅ Filter by Status & Date
-- ✅ Detailed Vehicle Information
-- ✅ Violation Alerts
-- ✅ Pull-to-refresh
+### 🚗 จัดการข้อมูลรถ
+- ค้นหาและกรองข้อมูลรถ
+- ดูรายละเอียดแต่ละคัน
+- แจ้งเตือนรถที่มีความผิด
+- ดึงข้อมูลใหม่ (Pull-to-refresh)
 
-### ⚙️ Settings
-- ✅ Profile Management
-- ✅ System Configuration
-- ✅ Data Export
-- ✅ App Information
+### 📈 สถิติและรายงาน
+- กราฟแสดงแนวโน้มการตรวจจับ
+- วิเคราะห์ประเภทความผิด
+- เปรียบเทียบข้อมูลรายวัน/เดือน
+- แสดงผลแบบกราฟหลายรูปแบบ (Line, Bar, Pie)
 
-## 🏗️ Architecture
+### ⚙️ การตั้งค่า
+- จัดการโปรไฟล์ผู้ใช้
+- ตั้งค่าระบบ
+- ส่งออกข้อมูล
+- ข้อมูลแอปพลิเคชัน
 
-### Clean Architecture Pattern
-```
-lib/
-├── core/
-│   ├── constants/      # Colors, Strings, Dimensions
-│   ├── theme/          # App Theme Configuration
-│   └── utils/          # Helpers & Utilities
-├── models/             # Data Models
-├── services/           # Business Logic Layer
-├── widgets/            # Reusable Widgets
-└── pages/              # UI Screens
-```
+---
 
-### Key Design Patterns
-- **Singleton Pattern** - Services
-- **Repository Pattern** - Data Layer
-- **State Management** - StatefulWidget with setState
-- **Dependency Injection** - Service Locators
+## 🚀 เริ่มต้นใช้งานอย่างรวดเร็ว
 
-## 🛠️ Technologies
+### ข้อกำหนดเบื้องต้น
 
-### Core
-- **Flutter** 3.9.2 - UI Framework
-- **Dart** 3.9.2 - Programming Language
-- **Material Design 3** - Design System
+ก่อนเริ่มต้น โปรดติดตั้งโปรแกรมเหล่านี้:
 
-### Packages
-```yaml
-dependencies:
-  flutter:
-    sdk: flutter
-  cupertino_icons: ^1.0.8
-  fl_chart: ^0.69.0          # Charts & Graphs
-  intl: ^0.19.0              # Internationalization
-  camera: ^0.11.0            # Camera Access
-  path_provider: ^2.1.1      # File System
-  path: ^1.9.0               # Path Manipulation
-  image_picker: ^1.0.4       # Image Selection
-  flutter_dotenv: ^5.1.0     # Environment Configuration
-```
+- **Flutter SDK** 3.9.2 หรือสูงกว่า → [ดาวน์โหลด](https://flutter.dev)
+- **Dart SDK** 3.9.2 หรือสูงกว่า (รวมอยู่ใน Flutter)
+- **Git** สำหรับจัดการโค้ด → [ดาวน์โหลด](https://git-scm.com)
 
-### Fonts
-- **Kanit** - Thai Font (Regular, Medium, Bold)
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-Before you begin, ensure you have the following installed:
-
-#### Required
-- **Flutter SDK** 3.9.2 or higher
-  - Download from [flutter.dev](https://flutter.dev)
-  - Verify: `flutter --version`
-- **Dart SDK** 3.9.2 or higher (included with Flutter)
-- **Git** for version control
-  - Download from [git-scm.com](https://git-scm.com)
-
-#### Platform-Specific Requirements
-
-**For Android Development:**
-- Android Studio or IntelliJ IDEA
-- Android SDK (API 21 or higher)
-- Android Emulator or physical device
-- Java Development Kit (JDK) 11 or higher
-
-**For iOS Development (macOS only):**
-- Xcode 12.0 or higher
-- CocoaPods (`sudo gem install cocoapods`)
-- iOS Simulator or physical device
-- Apple Developer account (for device testing)
-
-**For Web Development:**
-- Chrome, Edge, Safari, or Firefox browser
-- No additional setup required
-
-**For Windows Development:**
-- Visual Studio 2022 (with C++ development tools)
-- Windows 10 version 1809 or higher
-
-**For Linux Development:**
-- Clang
-- CMake
-- GTK development libraries
-- Ninja build system
-
-#### Verify Installation
-
-Run Flutter doctor to check your setup:
+**ตรวจสอบการติดตั้ง:**
 ```bash
-flutter doctor -v
+flutter doctor
 ```
 
-All required components should show checkmarks ✓
+### ติดตั้งและรันแอป
 
-### Installation
+1. **Clone โปรเจกต์**
+   ```bash
+   git clone https://github.com/somkheartk/smart-mobile-lpr.git
+   cd smart-mobile-lpr
+   ```
 
-#### 1. Clone Repository
-```bash
-git clone https://github.com/somkheartk/smart-mobile-lpr.git
-cd smart-mobile-lpr
-```
+2. **ติดตั้ง Dependencies**
+   ```bash
+   flutter pub get
+   ```
 
-#### 2. Setup Environment Variables
-```bash
-# Copy environment template
-cp .env.example .env
+3. **ตั้งค่า Environment (ถ้าต้องการ)**
+   ```bash
+   # คัดลอกไฟล์ตัวอย่าง
+   cp .env.example .env
+   
+   # แก้ไขการตั้งค่าตามต้องการ
+   # nano .env  หรือ  notepad .env
+   ```
 
-# Edit .env file with your configuration
-# Linux/Mac
-nano .env
-# or
-vim .env
+4. **รันแอปพลิเคชัน**
+   ```bash
+   # ดูรายการอุปกรณ์ที่เชื่อมต่อ
+   flutter devices
+   
+   # รันแอป
+   flutter run
+   ```
 
-# Windows
-notepad .env
-```
+   **หรือเลือกแพลตฟอร์มเฉพาะ:**
+   ```bash
+   flutter run -d chrome      # เว็บเบราว์เซอร์
+   flutter run -d android     # Android
+   flutter run -d ios         # iOS (เฉพาะ macOS)
+   flutter run -d windows     # Windows Desktop
+   ```
 
-**Required Environment Variables:**
-- `API_BASE_URL`: Your backend API URL
-- `API_KEY`: Your API authentication key (if required)
-- Configure other settings as needed (see `.env.example` for all options)
+### ข้อมูลเข้าสู่ระบบทดสอบ
 
-#### 3. Install Dependencies
-```bash
-# Fetch all Flutter packages
-flutter pub get
-
-# This may take a few minutes on first run
-```
-
-#### 4. Verify Assets
-```bash
-# Ensure fonts are in place
-ls assets/fonts/
-# Should show: Kanit-Regular.ttf, Kanit-Medium.ttf, Kanit-Bold.ttf
-```
-
-#### 5. Run Application
-```bash
-# List available devices
-flutter devices
-
-# Run on specific device
-flutter run -d <device-id>
-
-# Or simply run (Flutter will ask you to choose)
-flutter run
-```
-
-**Platform-Specific Run Commands:**
-```bash
-# Android
-flutter run -d android
-
-# iOS (macOS only)
-flutter run -d ios
-
-# Web (Chrome)
-flutter run -d chrome
-
-# Web (Edge)  
-flutter run -d edge
-
-# Windows Desktop
-flutter run -d windows
-
-# macOS Desktop
-flutter run -d macos
-
-# Linux Desktop
-flutter run -d linux
-```
-
-#### 6. Choose Target Platform
-
-When you run `flutter run`, you'll see a list:
-```
-Connected devices:
-[1]: sdk gphone64 x86 64 (mobile) • emulator-5554 • android-x64 • Android 13 (API 33)
-[2]: Chrome (web) • chrome • web-javascript • Google Chrome 120.0.6099.109
-[3]: Windows (desktop) • windows • windows-x64 • Microsoft Windows [Version 10.0.19045.3803]
-
-Please choose one (or "q" to quit):
-```
-
-Enter the number of your target platform.
-
-### Demo Credentials
 ```
 Username: admin
 Password: admin123
 
--- OR --
+-- หรือ --
 
-Username: operator1
+Username: operator1  
 Password: operator123
 ```
 
-### Environment Configuration
+### ⚡ เริ่มพัฒนาแอป
 
-The application uses `.env` file for configuration. Key settings include:
+หลังจากรันแอปได้แล้ว:
+- กด `r` ในหน้าต่าง terminal เพื่อ Hot Reload (รีเฟรชหน้าจอ)
+- กด `R` เพื่อ Hot Restart (รีสตาร์ทแอป)
+- กด `q` เพื่อออกจากแอป
 
-- **API Configuration**: Base URL, timeout, API keys
-- **Camera Settings**: Quality, flash mode
-- **Detection Settings**: Confidence threshold, max attempts
-- **Feature Flags**: Enable/disable features
-- **Third Party**: Firebase, analytics services
+---
 
-See `.env.example` for all available configuration options.
-
-## 📁 Project Structure
+## 📁 โครงสร้างโปรเจกต์
 
 ```
-mobile_lpr/
-├── android/                    # Android native code
-├── ios/                        # iOS native code
+smart-mobile-lpr/
 ├── lib/
-│   ├── core/
-│   │   ├── config/
-│   │   │   └── app_config.dart       # Environment configuration
-│   │   ├── constants/
-│   │   │   ├── app_colors.dart       # Color palette
-│   │   │   ├── app_strings.dart      # Thai strings
-│   │   │   └── app_dimensions.dart   # Spacing values
-│   │   ├── theme/
-│   │   │   └── app_theme.dart        # Theme config
-│   │   └── utils/
-│   │       ├── date_time_helper.dart # Date formatting
-│   │       ├── number_formatter.dart # Number formatting
-│   │       ├── validators.dart       # Input validation
-│   │       └── ui_helpers.dart       # UI helpers
-│   ├── models/
-│   │   ├── vehicle.dart              # Vehicle model
-│   │   ├── statistics.dart           # Statistics models
-│   │   ├── operator.dart             # Operator model
-│   │   ├── user.dart                 # User model
-│   │   └── api_response.dart         # API wrapper
-│   ├── services/
-│   │   ├── auth_service.dart         # Authentication
-│   │   ├── vehicle_service.dart      # Vehicle operations
-│   │   ├── statistics_service.dart   # Statistics data
-│   │   └── operator_service.dart     # Operator data
-│   ├── widgets/
-│   │   ├── stat_card.dart            # Statistics card
-│   │   ├── vehicle_card.dart         # Vehicle card
-│   │   └── section_header.dart       # Section title
-│   ├── pages/
-│   │   ├── login_page.dart           # Login screen
-│   │   ├── main_navigator.dart       # Bottom navigation
-│   │   ├── dashboard_page.dart       # Dashboard
-│   │   ├── camera_page.dart          # Camera scanner
-│   │   ├── statistics_page.dart      # Statistics
-│   │   ├── vehicle_list_page.dart    # Vehicle list
-│   │   └── settings_page.dart        # Settings
-│   └── main.dart                     # Entry point
-├── assets/
-│   └── fonts/                        # Kanit fonts
-├── test/                             # Unit tests
-├── .env                              # Environment variables (git ignored)
-├── .env.example                      # Environment template
-├── pubspec.yaml                      # Dependencies
-└── README.md                         # This file
+│   ├── core/              # ส่วนแกนหลักของแอป
+│   │   ├── config/        # การตั้งค่า Environment
+│   │   ├── constants/     # ค่าคงที่ (สี, ข้อความ, ขนาด)
+│   │   ├── theme/         # ธีมและสไตล์
+│   │   └── utils/         # ฟังก์ชันช่วยเหลือ
+│   │
+│   ├── models/            # โมเดลข้อมูล
+│   │   ├── user.dart
+│   │   ├── vehicle.dart
+│   │   ├── statistics.dart
+│   │   └── ...
+│   │
+│   ├── services/          # ชั้น Business Logic
+│   │   ├── auth_service.dart
+│   │   ├── vehicle_service.dart
+│   │   └── ...
+│   │
+│   ├── widgets/           # Widget ที่นำกลับมาใช้ได้
+│   │   ├── stat_card.dart
+│   │   ├── vehicle_card.dart
+│   │   └── ...
+│   │
+│   ├── pages/             # หน้าจอต่างๆ ของแอป
+│   │   ├── login_page.dart
+│   │   ├── dashboard_page.dart
+│   │   ├── camera_page.dart
+│   │   ├── vehicle_list_page.dart
+│   │   ├── statistics_page.dart
+│   │   └── settings_page.dart
+│   │
+│   └── main.dart          # จุดเริ่มต้นของแอป
+│
+├── assets/                # ไฟล์ทรัพยากร
+│   └── fonts/            # ฟอนต์ Kanit
+│
+├── test/                  # Unit Tests
+│
+├── .env.example           # ตัวอย่างการตั้งค่า
+├── pubspec.yaml          # จัดการ Dependencies
+└── README.md             # ไฟล์นี้
 ```
 
-## 🎨 Design System
+### สถาปัตยกรรม (Architecture)
 
-### Colors
-- **Primary Blue**: `#4A90E2`
-- **Success Green**: `#4CAF50`
-- **Warning Yellow**: `#FF9800`
-- **Error Red**: `#F44336`
-- **Background**: `#F5F7FA`
+โปรเจกต์นี้ใช้ **Clean Architecture Pattern**:
+- `core/` - ส่วนพื้นฐาน (theme, constants, utilities)
+- `models/` - โครงสร้างข้อมูล
+- `services/` - ตรรกะทางธุรกิจ (Singleton Pattern)
+- `widgets/` - UI Components ที่ใช้ซ้ำได้
+- `pages/` - หน้าจอหลักของแอป
 
-### Typography
-- **Font Family**: Kanit
-- **Sizes**: 12, 14, 16, 18, 20, 24, 28, 32
-- **Weights**: Regular (400), Medium (500), Bold (700)
+---
 
-### Components
-- **Border Radius**: 8, 12, 16, 20, 24
-- **Spacing**: 4, 8, 12, 16, 20, 24, 32
-- **Shadows**: Elevation 2, 4, 8, 16
+## 🛠️ เทคโนโลยีที่ใช้
 
-## 🔄 State Management
+### เฟรมเวิร์กหลัก
+- **Flutter** 3.9.2 - สร้าง UI แบบ Cross-Platform
+- **Dart** 3.9.2 - ภาษาโปรแกรมมิ่ง
+- **Material Design 3** - ระบบออกแบบ UI
 
-Currently using **StatefulWidget with setState**. 
+### ไลบรารีสำคัญ
+| Package | วัตถุประสงค์ |
+|---------|--------------|
+| `fl_chart` | สร้างกราฟและชาร์ต |
+| `intl` | จัดการภาษาและวันที่ |
+| `camera` | เข้าถึงกล้อง |
+| `path_provider` | จัดการไฟล์ระบบ |
+| `image_picker` | เลือกรูปภาพ |
+| `flutter_dotenv` | จัดการ Environment Variables |
 
-Future enhancements may include:
-- Provider
-- Riverpod
-- Bloc Pattern
+### ฟอนต์
+- **Kanit** - ฟอนต์ภาษาไทย (Regular, Medium, Bold)
 
-## 📊 Data Layer
+ดูรายละเอียดเพิ่มเติมใน [`pubspec.yaml`](pubspec.yaml)
 
-### Mock Data
-All services use **mock data** for development and demonstration.
+---
 
-### Future Enhancements
-- REST API Integration
-- Local Database (SQLite/Hive)
-- Cloud Sync (Firebase)
-- Real ML Model Integration
+## 📚 เอกสารเพิ่มเติม
 
-## 📚 API Documentation
+### คู่มือสำหรับนักพัฒนา
 
-### Services Layer
+- **[คู่มือการพัฒนา](docs/DEVELOPMENT.md)** - วิธีตั้งค่า environment, code style, และการเพิ่มฟีเจอร์ใหม่
+- **[การทำ Build](docs/BUILD.md)** - วิธี build แอปสำหรับแต่ละแพลตฟอร์ม (Android APK, iOS IPA, Web, Desktop)
+- **[การเทส](docs/TESTING.md)** - วิธีรันเทส Unit tests และ Widget tests
+- **[API Documentation](docs/API.md)** - รายละเอียด Services และ Models
+- **[แก้ปัญหาที่พบบ่อย](docs/TROUBLESHOOTING.md)** - วิธีแก้ปัญหาที่เจอบ่อย
 
-The application uses service classes to manage business logic and data operations:
+### แผนการพัฒนาในอนาคต
 
-#### AuthService
-```dart
-// Singleton instance
-final authService = AuthService();
+โปรเจกต์นี้อยู่ในระหว่างพัฒนา ฟีเจอร์ที่กำลังวางแผน:
 
-// Login
-await authService.login(username, password);
+**Version 2.0** (กำลังพัฒนา)
+- ✅ การเชื่อมต่อ Backend API จริง
+- ✅ Machine Learning สำหรับตรวจจับป้ายทะเบียนจริง
+- ✅ ฐานข้อมูลท้องถิ่น (SQLite/Hive)
+- ✅ ระบบ Notification แบบ Real-time
 
-// Check authentication status
-bool isLoggedIn = authService.isAuthenticated;
+**Version 2.5** (วางแผน)
+- ⏳ รองรับหลายภาษา (ไทย, English)
+- ⏳ โหมดมืด (Dark Mode)
+- ⏳ ส่งออกรายงาน (PDF, Excel)
 
-// Get current user
-User? currentUser = authService.currentUser;
+**Version 3.0** (อนาคต)
+- 🔮 วิเคราะห์ข้อมูลขั้นสูง
+- 🔮 ระบบจัดการผู้ใช้หลายคน
+- 🔮ระบบสิทธิ์ตามบทบาท (RBAC)
 
-// Logout
-authService.logout();
+ดู [Roadmap](docs/ROADMAP.md) ฉบับเต็ม
+
+---
+
+## 🤝 การสนับสนุน
+
+### ต้องการความช่วยเหลือ?
+
+- 📖 อ่าน [เอกสารประกอบ](docs/)
+- 🐛 รายงานบั๊กที่ [Issues](https://github.com/somkheartk/smart-mobile-lpr/issues)
+- 💬 ถาม-ตอบได้ที่ [Discussions](https://github.com/somkheartk/smart-mobile-lpr/discussions)
+- ⭐ ถ้าโปรเจกต์นี้มีประโยชน์ กด Star ให้กำลังใจเรา
+
+### มีส่วนร่วมในโปรเจกต์
+
+เรายินดีรับการมีส่วนร่วมจากทุกคน!
+
+1. Fork โปรเจกต์
+2. สร้าง Feature Branch (`git checkout -b feature/FeatureName`)
+3. Commit การเปลี่ยนแปลง (`git commit -m 'Add: คำอธิบายสั้นๆ'`)
+4. Push ไปยัง Branch (`git push origin feature/FeatureName`)
+5. เปิด Pull Request
+
+อ่าน [คู่มือการมีส่วนร่วม](CONTRIBUTING.md) สำหรับรายละเอียดเพิ่มเติม
+
+### แนวทางการเขียน Commit Message
+
+```
+feat: เพิ่มฟีเจอร์ใหม่
+fix: แก้ไขบั๊ก
+docs: แก้ไขเอกสาร
+style: จัด code style
+refactor: ปรับปรุงโค้ด
+test: เพิ่มหรือแก้ไขเทส
+chore: งานบำรุงรักษา
 ```
 
-#### VehicleService
-```dart
-final vehicleService = VehicleService();
-
-// Get all vehicles
-List<Vehicle> vehicles = vehicleService.getVehicles();
-
-// Search vehicles
-List<Vehicle> results = vehicleService.searchVehicles('กก 1234');
-
-// Filter by status
-List<Vehicle> filtered = vehicleService.filterByStatus(VehicleStatus.violation);
-
-// Add new vehicle detection
-vehicleService.addVehicle(newVehicle);
-```
-
-#### StatisticsService
-```dart
-final statsService = StatisticsService();
-
-// Get today's statistics
-Statistics todayStats = statsService.getTodayStatistics();
-
-// Get monthly statistics
-Statistics monthlyStats = statsService.getMonthlyStatistics();
-
-// Get detection trends (for charts)
-List<DetectionData> trends = statsService.getDetectionTrends();
-```
-
-### Models
-
-#### Vehicle Model
-```dart
-class Vehicle {
-  final String id;
-  final String licensePlate;
-  final VehicleType type;
-  final DateTime detectedAt;
-  final VehicleStatus status;
-  final String? violationType;
-  final String operator;
-}
-
-enum VehicleType { car, pickup, van, truck, motorcycle }
-enum VehicleStatus { normal, violation }
-```
-
-#### User Model
-```dart
-class User {
-  final String id;
-  final String username;
-  final String fullName;
-  final String role;
-  final String? profileImage;
-}
-```
-
-## 👨‍💻 Development Guide
-
-### Setting Up Development Environment
-
-1. **Install Flutter SDK**
-   ```bash
-   # Download Flutter SDK from https://flutter.dev
-   # Add to PATH
-   export PATH="$PATH:`pwd`/flutter/bin"
-   
-   # Verify installation
-   flutter doctor
-   ```
-
-2. **Install IDE Extensions**
-   - **VS Code**: Flutter, Dart, Flutter Widget Snippets
-   - **Android Studio**: Flutter Plugin, Dart Plugin
-
-3. **Clone and Setup**
-   ```bash
-   git clone https://github.com/somkheartk/smart-mobile-lpr.git
-   cd smart-mobile-lpr
-   
-   # Copy environment file
-   cp .env.example .env
-   
-   # Install dependencies
-   flutter pub get
-   
-   # Run code generation (if needed)
-   flutter pub run build_runner build
-   ```
-
-### Code Style Guidelines
-
-- **File Naming**: Use `snake_case` for file names (e.g., `vehicle_service.dart`)
-- **Class Naming**: Use `PascalCase` for class names (e.g., `VehicleService`)
-- **Variables**: Use `camelCase` for variables (e.g., `currentUser`)
-- **Constants**: Use `lowerCamelCase` with `const` (e.g., `const primaryColor`)
-- **Private Members**: Prefix with underscore (e.g., `_privateMethod`)
-
-### Adding New Features
-
-1. **Create Model** (if needed)
-   ```dart
-   // lib/models/my_model.dart
-   class MyModel {
-     final String id;
-     final String name;
-     
-     MyModel({required this.id, required this.name});
-   }
-   ```
-
-2. **Create Service**
-   ```dart
-   // lib/services/my_service.dart
-   class MyService {
-     static final MyService _instance = MyService._internal();
-     factory MyService() => _instance;
-     MyService._internal();
-     
-     // Your methods here
-   }
-   ```
-
-3. **Create Widget**
-   ```dart
-   // lib/widgets/my_widget.dart
-   class MyWidget extends StatelessWidget {
-     const MyWidget({super.key});
-     
-     @override
-     Widget build(BuildContext context) {
-       return Container();
-     }
-   }
-   ```
-
-4. **Create Page**
-   ```dart
-   // lib/pages/my_page.dart
-   class MyPage extends StatefulWidget {
-     const MyPage({super.key});
-     
-     @override
-     State<MyPage> createState() => _MyPageState();
-   }
-   
-   class _MyPageState extends State<MyPage> {
-     @override
-     Widget build(BuildContext context) {
-       return Scaffold(
-         appBar: AppBar(title: const Text('My Page')),
-         body: Container(),
-       );
-     }
-   }
-   ```
-
-### Hot Reload & Hot Restart
-
-- **Hot Reload**: Press `r` in terminal or `Ctrl+S` in IDE
-  - Fast UI updates without losing state
-  - Use for UI changes
-  
-- **Hot Restart**: Press `R` in terminal
-  - Full app restart with state reset
-  - Use for logic changes or state issues
-
-### Debugging Tips
-
-1. **Print Debugging**
-   ```dart
-   debugPrint('Debug message: $variable');
-   ```
-
-2. **Flutter DevTools**
-   ```bash
-   flutter pub global activate devtools
-   flutter pub global run devtools
-   ```
-
-3. **Widget Inspector**
-   - Press `p` in terminal to show performance overlay
-   - Press `w` to toggle widget inspector
-
-4. **Debug Console**
-   - View logs in IDE debug console
-   - Filter by log level
-
-## 🧪 Testing
-
-### Running Tests
-
-```bash
-# Run all tests
-flutter test
-
-# Run specific test file
-flutter test test/services/auth_service_test.dart
-
-# Run with coverage
-flutter test --coverage
-
-# Generate coverage report (requires lcov)
-genhtml coverage/lcov.info -o coverage/html
-```
-
-### Test Structure
-
-```dart
-// test/services/auth_service_test.dart
-import 'package:flutter_test/flutter_test.dart';
-import 'package:mobile_lpr/services/auth_service.dart';
-
-void main() {
-  group('AuthService', () {
-    late AuthService authService;
-    
-    setUp(() {
-      authService = AuthService();
-    });
-    
-    test('should login with valid credentials', () async {
-      final result = await authService.login('admin', 'admin123');
-      expect(result, isTrue);
-      expect(authService.isAuthenticated, isTrue);
-    });
-    
-    test('should reject invalid credentials', () async {
-      final result = await authService.login('wrong', 'wrong');
-      expect(result, isFalse);
-      expect(authService.isAuthenticated, isFalse);
-    });
-  });
-}
-```
-
-### Widget Testing
-
-```dart
-// test/widgets/stat_card_test.dart
-import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:mobile_lpr/widgets/stat_card.dart';
-
-void main() {
-  testWidgets('StatCard displays correct values', (tester) async {
-    await tester.pumpWidget(
-      const MaterialApp(
-        home: Scaffold(
-          body: StatCard(
-            title: 'Total',
-            value: '100',
-            color: Colors.blue,
-            icon: Icons.car_rental,
-          ),
-        ),
-      ),
-    );
-    
-    expect(find.text('Total'), findsOneWidget);
-    expect(find.text('100'), findsOneWidget);
-    expect(find.byIcon(Icons.car_rental), findsOneWidget);
-  });
-}
-```
-
-## 📦 Build & Deployment
-
-### Android APK
-
-#### Debug Build
-```bash
-flutter build apk --debug
-# Output: build/app/outputs/flutter-apk/app-debug.apk
-```
-
-#### Release Build
-```bash
-# Build release APK
-flutter build apk --release
-
-# Build split APKs (smaller size)
-flutter build apk --split-per-abi --release
-
-# Output: build/app/outputs/flutter-apk/
-```
-
-#### App Bundle (Google Play)
-```bash
-flutter build appbundle --release
-# Output: build/app/outputs/bundle/release/app-release.aab
-```
-
-### iOS IPA
-
-```bash
-# Ensure certificates and provisioning profiles are configured
-flutter build ios --release
-
-# Archive in Xcode for distribution
-# Open ios/Runner.xcworkspace in Xcode
-# Product > Archive
-```
-
-### Web
-
-```bash
-# Build for web
-flutter build web --release
-
-# Build with custom base href
-flutter build web --base-href "/app/" --release
-
-# Deploy to hosting
-# Upload contents of build/web to your web server
-```
-
-### Windows Desktop
-
-```bash
-# Build Windows executable
-flutter build windows --release
-
-# Output: build/windows/runner/Release/
-# Distribute the entire Release folder
-```
-
-### Linux Desktop
-
-```bash
-flutter build linux --release
-# Output: build/linux/x64/release/bundle/
-```
-
-### macOS Desktop
-
-```bash
-flutter build macos --release
-# Output: build/macos/Build/Products/Release/
-```
-
-## 🐛 Troubleshooting
-
-### Common Issues and Solutions
-
-#### 1. Flutter Command Not Found
-```bash
-# Add Flutter to PATH
-export PATH="$PATH:[PATH_TO_FLUTTER_GIT_DIRECTORY]/flutter/bin"
-
-# Or add to ~/.bashrc or ~/.zshrc permanently
-echo 'export PATH="$PATH:/path/to/flutter/bin"' >> ~/.bashrc
-```
-
-#### 2. Camera Permission Issues
-
-**Android**: Add to `android/app/src/main/AndroidManifest.xml`
-```xml
-<uses-permission android:name="android.permission.CAMERA" />
-<uses-feature android:name="android.hardware.camera" />
-```
-
-**iOS**: Add to `ios/Runner/Info.plist`
-```xml
-<key>NSCameraUsageDescription</key>
-<string>This app needs camera access to scan license plates</string>
-```
-
-#### 3. Environment Variables Not Loading
-
-**Problem**: `.env` file not found or not loading
-```bash
-# Ensure .env file exists
-cp .env.example .env
-
-# Verify it's in project root
-ls -la .env
-
-# Check pubspec.yaml assets section includes .env
-```
-
-#### 4. Font Not Displaying Correctly
-
-**Solution**: Clear Flutter cache and rebuild
-```bash
-flutter clean
-flutter pub get
-flutter run
-```
-
-#### 5. Build Failed - Gradle Issues (Android)
-
-```bash
-# Clean project
-cd android
-./gradlew clean
-cd ..
-
-# Update dependencies
-flutter pub get
-
-# Rebuild
-flutter build apk
-```
-
-#### 6. Pod Install Failed (iOS)
-
-```bash
-# Navigate to iOS directory
-cd ios
-
-# Update CocoaPods
-pod repo update
-pod install
-
-# If still failing, try
-pod deintegrate
-pod install
-
-cd ..
-```
-
-#### 7. Out of Memory During Build
-
-```bash
-# Increase Java heap size (Android)
-# Edit android/gradle.properties
-org.gradle.jvmargs=-Xmx4096m -XX:MaxPermSize=512m -XX:+HeapDumpOnOutOfMemoryError
-
-# Or run with more memory
-flutter build apk --release --verbose
-```
-
-#### 8. Hot Reload Not Working
-
-```bash
-# Try hot restart instead (press R in terminal)
-# Or stop and restart the app
-flutter run
-```
-
-### Platform-Specific Issues
-
-#### Android Emulator Slow
-
-```bash
-# Enable hardware acceleration
-# Intel: Install HAXM
-# AMD: Enable Hyper-V or use Android x86 images
-
-# Use Flutter on physical device instead
-flutter run -d <device-id>
-```
-
-#### iOS Simulator Issues
-
-```bash
-# Reset simulator
-xcrun simctl erase all
-
-# Boot specific simulator
-xcrun simctl boot "iPhone 15 Pro"
-```
-
-## ⚡ Performance Tips
-
-### 1. Use `const` Constructors
-```dart
-// Good
-const Text('Hello')
-
-// Bad
-Text('Hello')
-```
-
-### 2. Avoid Rebuilding Widgets Unnecessarily
-```dart
-// Use const widgets when possible
-const StatCard(title: 'Total', value: '100', ...)
-
-// Split widgets into smaller components
-// Use Keys for list items
-```
-
-### 3. Lazy Loading Lists
-```dart
-// Use ListView.builder instead of ListView
-ListView.builder(
-  itemCount: items.length,
-  itemBuilder: (context, index) {
-    return ItemWidget(item: items[index]);
-  },
-)
-```
-
-### 4. Image Optimization
-```dart
-// Use cached network images
-CachedNetworkImage(
-  imageUrl: url,
-  placeholder: (context, url) => CircularProgressIndicator(),
-)
-
-// Resize images appropriately
-Image.asset('image.png', width: 100, height: 100, fit: BoxFit.cover)
-```
-
-### 5. Avoid Expensive Operations in Build
-```dart
-// Bad - calculation in build method
-@override
-Widget build(BuildContext context) {
-  final expensiveValue = calculateExpensiveValue(); // Don't do this
-  return Text(expensiveValue);
-}
-
-// Good - calculate in initState or use memoization
-late String cachedValue;
-
-@override
-void initState() {
-  super.initState();
-  cachedValue = calculateExpensiveValue();
-}
-```
-
-### 6. Profile Your App
-```bash
-# Run in profile mode
-flutter run --profile
-
-# Use DevTools for performance analysis
-flutter pub global activate devtools
-flutter pub global run devtools
-```
-
-### 7. Reduce App Size
-```bash
-# Use split APKs
-flutter build apk --split-per-abi
-
-# Enable tree-shaking (automatic in release)
-flutter build apk --release
-
-# Remove unused resources
-flutter clean
-```
-
-## 🔒 Security
-
-### Best Practices
-
-#### 1. Environment Variables
-- ✅ **Never commit `.env` file to repository**
-- ✅ Use `.env.example` as template
-- ✅ Store sensitive data in environment variables
-- ❌ Don't hardcode API keys or secrets
-
-#### 2. Authentication
-```dart
-// Store tokens securely
-// Use flutter_secure_storage for sensitive data
-final storage = FlutterSecureStorage();
-await storage.write(key: 'auth_token', value: token);
-
-// Don't store passwords in plain text
-// Always use hashing on backend
-```
-
-#### 3. Input Validation
-```dart
-// Validate all user inputs
-String? validatePlateNumber(String? value) {
-  if (value == null || value.isEmpty) {
-    return 'กรุณากรอกหมายเลขทะเบียน';
-  }
-  if (!RegExp(r'^[ก-ฮ0-9]{1,3}\s?[ก-ฮ]{0,2}\s?\d{1,4}$').hasMatch(value)) {
-    return 'รูปแบบทะเบียนไม่ถูกต้อง';
-  }
-  return null;
-}
-```
-
-#### 4. Network Security
-```dart
-// Use HTTPS only
-const apiBaseUrl = 'https://api.example.com'; // ✅
-// Not: 'http://api.example.com' // ❌
-
-// Implement certificate pinning for sensitive apps
-// Use dio with certificate pinning
-```
-
-#### 5. Data Encryption
-```dart
-// Encrypt sensitive data before storage
-// Use encryption libraries like encrypt package
-final key = Key.fromUtf8('my32lengthsupersecretnooneknows');
-final iv = IV.fromLength(16);
-final encrypter = Encrypter(AES(key));
-
-final encrypted = encrypter.encrypt(plainText, iv: iv);
-final decrypted = encrypter.decrypt(encrypted, iv: iv);
-```
-
-#### 6. API Security
-- Use authentication tokens (JWT)
-- Implement rate limiting
-- Validate all responses from server
-- Handle errors gracefully without exposing system details
-
-#### 7. Code Obfuscation
-```bash
-# Build with obfuscation
-flutter build apk --obfuscate --split-debug-info=/path/to/symbols
-
-# Protect intellectual property
-# Makes reverse engineering harder
-```
-
-### Security Checklist
-
-- [ ] Environment variables properly configured
-- [ ] No hardcoded secrets in code
-- [ ] Input validation implemented
-- [ ] HTTPS used for all network calls
-- [ ] Sensitive data encrypted
-- [ ] Authentication tokens securely stored
-- [ ] Code obfuscation enabled for release builds
-- [ ] Permissions minimized (only request what's needed)
-- [ ] Error messages don't leak sensitive information
-- [ ] Dependencies regularly updated for security patches
-
-## ❓ FAQ
-
-### General Questions
-
-**Q: Can I use this app for production?**  
-A: Currently, this is a demo application with mock data. For production use, you need to:
-- Integrate with a real backend API
-- Implement real license plate recognition (ML model)
-- Add proper authentication and authorization
-- Set up database for persistent storage
-- Implement proper error handling and logging
-
-**Q: Which platforms are supported?**  
-A: The app is built with Flutter and supports:
-- ✅ Android (5.0+)
-- ✅ iOS (12.0+)
-- ✅ Web (Chrome, Safari, Edge, Firefox)
-- ✅ Windows (10+)
-- ✅ macOS (10.14+)
-- ✅ Linux
-
-**Q: Is this app free to use?**  
-A: Yes, it's open source under MIT License. You can use, modify, and distribute it freely.
-
-### Technical Questions
-
-**Q: How do I add a new page?**  
-A: Follow these steps:
-1. Create page file in `lib/pages/`
-2. Add to navigation in `main_navigator.dart`
-3. Update routes if using named routes
-4. Add necessary imports
-
-**Q: Can I change the language to English?**  
-A: Yes, edit `lib/core/constants/app_strings.dart` and replace Thai strings with English, or implement proper i18n using the `intl` package.
-
-**Q: How do I integrate a real ML model?**  
-A: Replace the mock detection in `camera_page.dart` with:
-- TensorFlow Lite model integration
-- Or call a backend API with ML inference
-- Or use cloud services like Google ML Kit
-
-**Q: Can I use a different state management solution?**  
-A: Yes, you can migrate to:
-- Provider (recommended for beginners)
-- Riverpod (type-safe, modern)
-- Bloc (for complex apps)
-- GetX (all-in-one solution)
-
-**Q: How do I add more vehicle types?**  
-A: Edit `lib/models/vehicle.dart` and add to the `VehicleType` enum:
-```dart
-enum VehicleType {
-  car,
-  pickup,
-  van,
-  truck,
-  motorcycle,
-  bus,        // Add new types
-  trailer,
-}
-```
-
-**Q: How can I export data to Excel/PDF?**  
-A: Add packages:
-```yaml
-dependencies:
-  excel: ^4.0.0      # For Excel export
-  pdf: ^3.10.0       # For PDF generation
-  printing: ^5.11.0  # For printing PDFs
-```
-
-### Deployment Questions
-
-**Q: How do I deploy to Google Play Store?**  
-A:
-1. Create app bundle: `flutter build appbundle --release`
-2. Sign the bundle with your keystore
-3. Upload to Google Play Console
-4. Fill in store listing details
-5. Submit for review
-
-**Q: How do I deploy to Apple App Store?**  
-A:
-1. Configure signing in Xcode
-2. Archive the app: Product > Archive
-3. Validate and upload via Xcode
-4. Submit for review in App Store Connect
-
-**Q: Can I host the web version on GitHub Pages?**  
-A: Yes:
-```bash
-# Build for web
-flutter build web --base-href "/smart-mobile-lpr/"
-
-# Push to gh-pages branch
-# Or use GitHub Actions for automatic deployment
-```
-
-## 🤝 Contributing
-
-We welcome contributions from the community! Here's how you can help:
-
-### Ways to Contribute
-
-- 🐛 Report bugs and issues
-- 💡 Suggest new features or enhancements
-- 📝 Improve documentation
-- 🔧 Submit bug fixes
-- ✨ Add new features
-- 🧪 Write tests
-- 🌍 Add translations
-
-### Contribution Process
-
-1. **Fork the Repository**
-   ```bash
-   # Click the Fork button on GitHub
-   # Clone your fork
-   git clone https://github.com/YOUR_USERNAME/smart-mobile-lpr.git
-   cd smart-mobile-lpr
-   ```
-
-2. **Create a Feature Branch**
-   ```bash
-   git checkout -b feature/AmazingFeature
-   # Or for bug fixes
-   git checkout -b fix/BugDescription
-   ```
-
-3. **Make Your Changes**
-   - Write clean, documented code
-   - Follow the existing code style
-   - Add tests for new features
-   - Update documentation as needed
-
-4. **Test Your Changes**
-   ```bash
-   # Run tests
-   flutter test
-   
-   # Test on multiple platforms
-   flutter run -d android
-   flutter run -d ios
-   flutter run -d chrome
-   ```
-
-5. **Commit Your Changes**
-   ```bash
-   git add .
-   git commit -m "Add: Brief description of changes"
-   
-   # Use conventional commit messages:
-   # feat: New feature
-   # fix: Bug fix
-   # docs: Documentation changes
-   # style: Code style changes
-   # refactor: Code refactoring
-   # test: Adding tests
-   # chore: Maintenance tasks
-   ```
-
-6. **Push to Your Fork**
-   ```bash
-   git push origin feature/AmazingFeature
-   ```
-
-7. **Open a Pull Request**
-   - Go to the original repository on GitHub
-   - Click "New Pull Request"
-   - Select your fork and branch
-   - Describe your changes clearly
-   - Reference any related issues
-
-### Code Review Process
-
-- All submissions require review
-- We may suggest changes or improvements
-- Once approved, your PR will be merged
-- Your contribution will be acknowledged
-
-### Coding Standards
-
-- Follow [Effective Dart](https://dart.dev/guides/language/effective-dart) guidelines
-- Use meaningful variable and function names
-- Write comments for complex logic
-- Keep functions small and focused
-- Use const constructors where possible
-
-### Commit Message Guidelines
-
-Format: `<type>: <subject>`
-
-**Types:**
-- `feat`: New feature
-- `fix`: Bug fix
-- `docs`: Documentation only
-- `style`: Code style (formatting, missing semicolons, etc.)
-- `refactor`: Code refactoring
-- `test`: Adding or updating tests
-- `chore`: Maintenance, dependencies, configuration
-
-**Examples:**
-```
-feat: Add dark mode support
-fix: Camera permission crash on Android 13
-docs: Update installation instructions
-refactor: Simplify vehicle service logic
-test: Add unit tests for auth service
-```
-
-### Code of Conduct
-
-- Be respectful and inclusive
-- Welcome newcomers and help them learn
-- Accept constructive criticism gracefully
-- Focus on what's best for the community
-- Show empathy towards others
+---
 
 ## 📝 License
 
@@ -1422,34 +461,58 @@ For support, email somkheart@example.com or open an issue in the repository.
 - [Awesome Flutter](https://github.com/Solido/awesome-flutter)
 - [Flutter Community Packages](https://github.com/fluttercommunity)
 
-## 📜 Changelog
+---
 
-### Version 1.0.0 (Current)
-- ✅ Initial release
-- ✅ Login/Logout functionality
-- ✅ Dashboard with statistics
-- ✅ Camera page with mock detection
-- ✅ Vehicle list with search and filter
-- ✅ Statistics page with charts
-- ✅ Settings page
-- ✅ Thai language support
-- ✅ Material Design 3 theme
-- ✅ Kanit font integration
-- ✅ Environment variable configuration
-- ✅ Cross-platform support (Android, iOS, Web, Desktop)
+## 📄 License
 
-### Coming in Next Release
-- Backend API integration
-- Real ML model for plate detection
-- Local database storage
-- Enhanced error handling
-- Performance optimizations
+โปรเจกต์นี้เป็นโอเพนซอร์สภายใต้ **MIT License** - ดูรายละเอียดใน [LICENSE](LICENSE)
 
-For detailed version history, see [GitHub Releases](https://github.com/somkheartk/smart-mobile-lpr/releases).
+คุณสามารถใช้งาน แก้ไข และเผยแพร่โค้ดนี้ได้อย่างเสรี
 
 ---
 
+## 👨‍💻 ผู้พัฒนา
+
+**Somkheart K.**
+- GitHub: [@somkheartk](https://github.com/somkheartk)
+- Repository: [smart-mobile-lpr](https://github.com/somkheartk/smart-mobile-lpr)
+
+---
+
+## 🙏 เครดิต
+
+- [Flutter Team](https://flutter.dev) - Framework ที่ยอดเยี่ยม
+- [Material Design](https://m3.material.io/) - ระบบออกแบบ
+- [fl_chart](https://pub.dev/packages/fl_chart) - ไลบรารีกราฟที่สวยงาม
+- ผู้ร่วมพัฒนาและทดสอบทุกท่าน
+
+---
+
+## 📌 ข้อจำกัดปัจจุบัน
+
+⚠️ **สำคัญ**: แอปพลิเคชันนี้เป็น **เวอร์ชันสาธิต** ที่มีข้อจำกัดดังนี้:
+
+- ใช้ข้อมูลจำลอง (Mock Data) - ไม่มีการเชื่อมต่อกับเซิร์ฟเวอร์จริง
+- การตรวจจับป้ายทะเบียนเป็นแบบจำลอง - ไม่ใช่ AI จริง
+- ไม่มีฐานข้อมูลถาวร - ข้อมูลจะหายเมื่อปิดแอป
+- รองรับผู้ใช้งานคนเดียว - ไม่มีระบบหลายผู้ใช้
+- ภาษาไทยอย่างเดียว - ยังไม่รองรับหลายภาษา
+
+สำหรับการใช้งานจริง กรุณาพัฒนาเพิ่มเติม:
+- Backend API
+- Machine Learning Model  
+- ฐานข้อมูล (Local + Cloud)
+- ระบบ Authentication ที่สมบูรณ์
+
+---
+
+<div align="center">
+
 **Made with ❤️ using Flutter**
 
- 
- 
+[![Flutter](https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white)](https://flutter.dev)
+[![Dart](https://img.shields.io/badge/Dart-0175C2?style=for-the-badge&logo=dart&logoColor=white)](https://dart.dev)
+
+[⬆ กลับไปด้านบน](#-smart-mobile-lpr)
+
+</div>
