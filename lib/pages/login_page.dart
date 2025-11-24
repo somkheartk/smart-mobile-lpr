@@ -72,33 +72,34 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _buildTitle() {
-    return const Text(
+    return Text(
       AppStrings.appName,
-      style: TextStyle(
+      style: Theme.of(context).textTheme.displayMedium?.copyWith(
         color: Colors.white,
-        fontSize: 32,
         fontWeight: FontWeight.bold,
       ),
     );
   }
 
   Widget _buildSubtitle() {
-    return const Text(
+    return Text(
       AppStrings.appSubtitle,
-      style: TextStyle(color: Colors.white70, fontSize: 16),
+      style: Theme.of(
+        context,
+      ).textTheme.bodyLarge?.copyWith(color: Colors.white70),
     );
   }
 
   Widget _buildLoginCard() {
     return Container(
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.all(28),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(24),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            blurRadius: 20,
+            color: Colors.black.withOpacity(0.15),
+            blurRadius: 30,
             offset: const Offset(0, 10),
           ),
         ],
@@ -106,30 +107,36 @@ class _LoginPageState extends State<LoginPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const Text(
+          Text(
             AppStrings.login,
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-              color: AppColors.primaryBlue,
-            ),
+            style: Theme.of(
+              context,
+            ).textTheme.displaySmall?.copyWith(color: AppColors.primaryBlue),
             textAlign: TextAlign.center,
           ),
-          const SizedBox(height: 30),
+          const SizedBox(height: 32),
           TextField(
             controller: _usernameController,
             decoration: const InputDecoration(
               labelText: AppStrings.username,
               prefixIcon: Icon(Icons.person_outline),
+              contentPadding: EdgeInsets.symmetric(
+                horizontal: 16,
+                vertical: 16,
+              ),
             ),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 20),
           TextField(
             controller: _passwordController,
             obscureText: _obscurePassword,
             decoration: InputDecoration(
               labelText: AppStrings.password,
               prefixIcon: const Icon(Icons.lock_outline),
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 16,
+                vertical: 16,
+              ),
               suffixIcon: IconButton(
                 icon: Icon(
                   _obscurePassword
@@ -144,23 +151,46 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 8),
           Align(
             alignment: Alignment.centerRight,
             child: TextButton(
               onPressed: () {},
-              child: const Text(AppStrings.forgotPassword),
+              child: const Text(
+                AppStrings.forgotPassword,
+                style: TextStyle(fontSize: 14),
+              ),
             ),
           ),
-          const SizedBox(height: 20),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => const MainNavigator()),
-              );
-            },
-            child: const Text(AppStrings.login),
+          const SizedBox(height: 24),
+          SizedBox(
+            height: 54,
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const MainNavigator(),
+                  ),
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.primaryBlue,
+                foregroundColor: Colors.white,
+                elevation: 2,
+                shadowColor: AppColors.primaryBlue.withOpacity(0.4),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+              child: Text(
+                AppStrings.login,
+                style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
           ),
         ],
       ),
@@ -170,9 +200,16 @@ class _LoginPageState extends State<LoginPage> {
   Widget _buildRegisterButton() {
     return TextButton(
       onPressed: () {},
-      child: const Text(
+      style: TextButton.styleFrom(
+        foregroundColor: Colors.white,
+        padding: const EdgeInsets.symmetric(vertical: 12),
+      ),
+      child: Text(
         AppStrings.noAccount,
-        style: TextStyle(color: Colors.white, fontSize: 16),
+        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+          color: Colors.white,
+          fontWeight: FontWeight.w500,
+        ),
       ),
     );
   }

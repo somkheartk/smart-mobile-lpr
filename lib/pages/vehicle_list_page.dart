@@ -4,6 +4,7 @@ import '../core/constants/app_strings.dart';
 import '../services/vehicle_service.dart';
 import '../models/vehicle.dart';
 import '../core/utils/date_time_helper.dart';
+import 'camera_page.dart';
 
 class VehicleListPage extends StatefulWidget {
   const VehicleListPage({super.key});
@@ -77,19 +78,10 @@ class _VehicleListPageState extends State<VehicleListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: AppBar(
-        title: const Text(AppStrings.vehicleList),
-        elevation: 0,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.search),
-            onPressed: () => _showSearchDialog(),
-          ),
-          IconButton(icon: const Icon(Icons.filter_list), onPressed: () {}),
-        ],
-      ),
+      appBar: AppBar(title: const Text(AppStrings.vehicleList), elevation: 0),
       body: Column(
         children: [
+          _buildSearchHeader(),
           _buildFilterChips(),
           Expanded(
             child: RefreshIndicator(
@@ -112,10 +104,131 @@ class _VehicleListPageState extends State<VehicleListPage> {
     );
   }
 
+  Widget _buildSearchHeader() {
+    return Stack(
+      clipBehavior: Clip.none,
+      children: [
+        Container(
+          height: 120,
+          decoration: const BoxDecoration(
+            gradient: AppColors.primaryGradient,
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(30),
+              bottomRight: Radius.circular(30),
+            ),
+          ),
+          child: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'ค้นหารถ',
+                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    'ค้นหาและสแกนป้ายทะเบียน',
+                    style: Theme.of(
+                      context,
+                    ).textTheme.bodyMedium?.copyWith(color: Colors.white70),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+        Positioned(
+          bottom: -28,
+          left: 20,
+          right: 20,
+          child: Container(
+            height: 56,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(16),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  blurRadius: 20,
+                  offset: const Offset(0, 4),
+                ),
+              ],
+            ),
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: _searchController,
+                    decoration: InputDecoration(
+                      hintText: 'ค้นหาป้ายทะเบียน...',
+                      prefixIcon: const Icon(
+                        Icons.search,
+                        color: AppColors.primaryBlue,
+                      ),
+                      border: InputBorder.none,
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 16,
+                      ),
+                      filled: false,
+                    ),
+                    onSubmitted: _searchVehicles,
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    gradient: AppColors.primaryGradient,
+                    borderRadius: BorderRadius.circular(12),
+                    boxShadow: [
+                      BoxShadow(
+                        color: AppColors.primaryBlue.withOpacity(0.3),
+                        blurRadius: 8,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                  child: Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(12),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const CameraPage(),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(12),
+                        child: const Icon(
+                          Icons.camera_alt,
+                          color: Colors.white,
+                          size: 24,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
   Widget _buildFilterChips() {
     final filters = ['ทั้งหมด', 'ปกติ', 'ผิดกฎหมาย', 'วันนี้', 'สัปดาห์นี้'];
 
     return Container(
+      margin: const EdgeInsets.only(top: 36),
       padding: const EdgeInsets.symmetric(vertical: 12),
       color: Colors.white,
       child: SingleChildScrollView(
@@ -299,38 +412,5 @@ class _VehicleListPageState extends State<VehicleListPage> {
       case VehicleType.motorcycle:
         return Icons.two_wheeler;
     }
-  }
-
-  void _showSearchDialog() {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('ค้นหาทะเบียนรถ'),
-        content: TextField(
-          controller: _searchController,
-          decoration: const InputDecoration(
-            hintText: 'ป้อนหมายเลขทะเบียนรถ',
-            prefixIcon: Icon(Icons.search),
-          ),
-          onSubmitted: (value) {
-            Navigator.pop(context);
-            _searchVehicles(value);
-          },
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('ยกเลิก'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pop(context);
-              _searchVehicles(_searchController.text);
-            },
-            child: const Text('ค้นหา'),
-          ),
-        ],
-      ),
-    );
   }
 }
