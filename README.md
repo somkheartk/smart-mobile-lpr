@@ -173,6 +173,8 @@ mobile_lpr/
 ├── ios/                        # iOS native code
 ├── lib/
 │   ├── core/
+│   │   ├── config/
+│   │   │   └── app_config.dart       # Environment configuration
 │   │   ├── constants/
 │   │   │   ├── app_colors.dart       # Color palette
 │   │   │   ├── app_strings.dart      # Thai strings
@@ -211,6 +213,8 @@ mobile_lpr/
 ├── assets/
 │   └── fonts/                        # Kanit fonts
 ├── test/                             # Unit tests
+├── .env                              # Environment variables (git ignored)
+├── .env.example                      # Environment template
 ├── pubspec.yaml                      # Dependencies
 └── README.md                         # This file
 ```
