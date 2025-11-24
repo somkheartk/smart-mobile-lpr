@@ -78,7 +78,11 @@ class _VehicleListPageState extends State<VehicleListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: AppBar(title: const Text(AppStrings.vehicleList), elevation: 0),
+      appBar: AppBar(
+        title: const Text(AppStrings.vehicleList),
+        automaticallyImplyLeading: false,
+        elevation: 0,
+      ),
       body: Column(
         children: [
           _buildSearchHeader(),
@@ -109,37 +113,34 @@ class _VehicleListPageState extends State<VehicleListPage> {
       clipBehavior: Clip.none,
       children: [
         Container(
-          height: 120,
+          height: 100,
           decoration: const BoxDecoration(
             gradient: AppColors.primaryGradient,
             borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(30),
-              bottomRight: Radius.circular(30),
+              bottomLeft: Radius.circular(24),
+              bottomRight: Radius.circular(24),
             ),
           ),
-          child: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'ค้นหารถ',
-                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    'ค้นหาและสแกนป้ายทะเบียน',
-                    style: Theme.of(
-                      context,
-                    ).textTheme.bodyMedium?.copyWith(color: Colors.white70),
-                  ),
-                ],
+          padding: const EdgeInsets.fromLTRB(20, 16, 20, 16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'ค้นหารถ',
+                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
+              const SizedBox(height: 4),
+              Text(
+                'ค้นหาและสแกนป้ายทะเบียน',
+                style: Theme.of(
+                  context,
+                ).textTheme.bodyMedium?.copyWith(color: Colors.white70),
+              ),
+            ],
           ),
         ),
         Positioned(
@@ -228,7 +229,7 @@ class _VehicleListPageState extends State<VehicleListPage> {
     final filters = ['ทั้งหมด', 'ปกติ', 'ผิดกฎหมาย', 'วันนี้', 'สัปดาห์นี้'];
 
     return Container(
-      margin: const EdgeInsets.only(top: 36),
+      margin: const EdgeInsets.only(top: 32),
       padding: const EdgeInsets.symmetric(vertical: 12),
       color: Colors.white,
       child: SingleChildScrollView(
