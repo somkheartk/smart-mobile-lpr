@@ -13,6 +13,7 @@ class AppStrings {
 
   // Bottom Navigation
   static const String home = 'หน้าหลัก';
+  static const String camera = 'สแกน';
   static const String statistics = 'สถิติ';
   static const String vehicleList = 'รายการ';
   static const String settings = 'ตั้งค่า';
@@ -78,4 +79,15 @@ class AppStrings {
   static const String termsOfService = 'เงื่อนไขการใช้งาน';
   static const String termsDesc = 'อ่านเงื่อนไข';
   static const String admin = 'ผู้ดูแลระบบ';
+
+  // Camera
+  static const String carScanner = 'Car Scanner';
+  static const String scanPlateNumber = 'สแกนเบอร์รถเพื่อบันทึกหลักฐาน';
+  static const String tapToScan = 'แตะเพื่อสแกน';
+  static const String scanning = 'กำลังสแกน...';
+  static const String detected = 'ตรวจพบ';
+  static const String plateNumber = 'ป้ายทะเบียน';
+  static const String save = 'บันทึก';
+  static const String retake = 'ถ่ายใหม่';
+  static const String cancel = 'ยกเลิก';
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../core/constants/app_strings.dart';
+import '../core/constants/app_colors.dart';
 import 'dashboard_page.dart';
+import 'camera_page.dart';
 import 'statistics_page.dart';
 import 'vehicle_list_page.dart';
 import 'settings_page.dart';
@@ -17,6 +19,7 @@ class _MainNavigatorState extends State<MainNavigator> {
 
   final List<Widget> _pages = [
     const DashboardPage(),
+    const CameraPage(),
     const StatisticsPage(),
     const VehicleListPage(),
     const SettingsPage(),
@@ -33,10 +36,16 @@ class _MainNavigatorState extends State<MainNavigator> {
             _selectedIndex = index;
           });
         },
+        type: BottomNavigationBarType.fixed,
+        selectedItemColor: AppColors.primaryBlue,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: AppStrings.home,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.camera_alt),
+            label: AppStrings.camera,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.bar_chart),
