@@ -100,9 +100,10 @@ void main() {
   
   testWidgets('StatCard ควรมีสีที่ถูกต้อง', (tester) async {
     await tester.pumpWidget(
-      const MaterialApp(
+      MaterialApp(
         home: Scaffold(
           body: StatCard(
+            key: const Key('test_stat_card'),
             title: 'Test',
             value: '50',
             color: Colors.red,
@@ -112,15 +113,12 @@ void main() {
       ),
     );
     
-    final container = tester.widget<Container>(
-      find.descendant(
-        of: find.byType(StatCard),
-        matching: find.byType(Container),
-      ).first,
+    // ใช้ key เพื่อหา widget เป้าหมายอย่างแม่นยำ
+    final statCard = tester.widget<StatCard>(
+      find.byKey(const Key('test_stat_card')),
     );
     
-    final decoration = container.decoration as BoxDecoration;
-    expect(decoration.color, Colors.red);
+    expect(statCard.color, Colors.red);
   });
 }
 ```

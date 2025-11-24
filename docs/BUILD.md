@@ -185,7 +185,7 @@ jobs:
     
     - uses: subosito/flutter-action@v2
       with:
-        flutter-version: '3.9.2'
+        flutter-version: '3.x'  # Use latest stable 3.x version
     
     - run: flutter pub get
     - run: flutter test

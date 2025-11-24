@@ -186,7 +186,9 @@ class _MyPageState extends State<MyPage> {
       appBar: AppBar(
         title: const Text('My Page'),
       ),
-      body: Container(),
+      body: const Center(
+        child: Text('Page content here'),
+      ),
     );
   }
   
