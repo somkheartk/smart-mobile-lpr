@@ -43,13 +43,14 @@ class _MainNavigatorState extends State<MainNavigator> {
             icon: Icon(Icons.home),
             label: AppStrings.home,
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.camera_alt),
-            label: AppStrings.camera,
-          ),
+
           BottomNavigationBarItem(
             icon: Icon(Icons.bar_chart),
             label: AppStrings.statistics,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.camera_alt),
+            label: AppStrings.camera,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.list),

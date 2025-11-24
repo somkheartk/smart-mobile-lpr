@@ -48,7 +48,12 @@ class VehicleService {
         location: 'ถนนสุขุมวิท กรุงเทพฯ',
         detectedAt: DateTime.now(),
         isViolation: true,
-        violationType: 'ขับเร็ว',
+        violationType: 'ขับเร็วเกินกำหนด',
+        confidence: 0.98,
+        province: 'กรุงเทพมหานคร',
+        speed: 110,
+        cameraId: 'CAM-001',
+        direction: 'เหนือ',
       );
 
       return ApiResponse.success(vehicle);
@@ -91,6 +96,15 @@ class VehicleService {
       'งง 7890',
     ];
 
+    final provinces = [
+      'กรุงเทพมหานคร',
+      'เชียงใหม่',
+      'ขอนแก่น',
+      'สงขลา',
+      'นครราชสีมา',
+      'ภูเก็ต',
+    ];
+
     final types = [
       VehicleType.car,
       VehicleType.truck,
@@ -99,15 +113,19 @@ class VehicleService {
     ];
 
     final violations = [
-      'ขับเร็ว',
+      'ขับเร็วเกินกำหนด',
       'บรรทุกน้ำหนักเกิน',
-      'ขับไม่มี ภ.ผ.20',
-      'ไม่คาดเข็มขัด',
-      'ไม่มีป้ายแดง',
+      'ไม่มี ภ.ผ.20',
+      'ไม่คาดเข็มขัดนิรภัย',
+      'ไม่มีป้ายทะเบียน',
     ];
+
+    final cameras = ['CAM-001', 'CAM-002', 'CAM-003', 'CAM-004'];
+    final directions = ['เหนือ', 'ใต้', 'ตะวันออก', 'ตะวันตก'];
 
     return List.generate(count, (index) {
       final isViolation = index % 3 == 0;
+      final speed = 60 + (index * 7) % 60;
       return Vehicle(
         id: 'v_$index',
         plateNumber: plates[index % plates.length],
@@ -118,6 +136,11 @@ class VehicleService {
         violationType: isViolation
             ? violations[index % violations.length]
             : null,
+        confidence: 0.85 + (index % 15) / 100,
+        province: provinces[index % provinces.length],
+        speed: speed,
+        cameraId: cameras[index % cameras.length],
+        direction: directions[index % directions.length],
       );
     });
   }

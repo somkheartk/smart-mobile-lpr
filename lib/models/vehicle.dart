@@ -7,6 +7,11 @@ class Vehicle {
   final bool isViolation;
   final String? violationType;
   final String? imageUrl;
+  final double confidence;
+  final String? province;
+  final int? speed;
+  final String cameraId;
+  final String? direction;
 
   Vehicle({
     required this.id,
@@ -17,6 +22,11 @@ class Vehicle {
     required this.isViolation,
     this.violationType,
     this.imageUrl,
+    this.confidence = 0.95,
+    this.province,
+    this.speed,
+    required this.cameraId,
+    this.direction,
   });
 
   factory Vehicle.fromJson(Map<String, dynamic> json) {
@@ -29,6 +39,11 @@ class Vehicle {
       isViolation: json['isViolation'] as bool,
       violationType: json['violationType'] as String?,
       imageUrl: json['imageUrl'] as String?,
+      confidence: (json['confidence'] as num?)?.toDouble() ?? 0.95,
+      province: json['province'] as String?,
+      speed: json['speed'] as int?,
+      cameraId: json['cameraId'] as String? ?? 'unknown',
+      direction: json['direction'] as String?,
     );
   }
 
@@ -42,6 +57,11 @@ class Vehicle {
       'isViolation': isViolation,
       'violationType': violationType,
       'imageUrl': imageUrl,
+      'confidence': confidence,
+      'province': province,
+      'speed': speed,
+      'cameraId': cameraId,
+      'direction': direction,
     };
   }
 
@@ -54,6 +74,11 @@ class Vehicle {
     bool? isViolation,
     String? violationType,
     String? imageUrl,
+    double? confidence,
+    String? province,
+    int? speed,
+    String? cameraId,
+    String? direction,
   }) {
     return Vehicle(
       id: id ?? this.id,
@@ -64,6 +89,11 @@ class Vehicle {
       isViolation: isViolation ?? this.isViolation,
       violationType: violationType ?? this.violationType,
       imageUrl: imageUrl ?? this.imageUrl,
+      confidence: confidence ?? this.confidence,
+      province: province ?? this.province,
+      speed: speed ?? this.speed,
+      cameraId: cameraId ?? this.cameraId,
+      direction: direction ?? this.direction,
     );
   }
 }
