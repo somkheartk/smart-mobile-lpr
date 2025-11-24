@@ -7,11 +7,11 @@ import 'pages/login_page.dart';
 Future<void> main() async {
   // Load environment variables
   await dotenv.load(fileName: ".env");
-  
+
   // Initialize app configuration
   final config = AppConfig();
   config.printConfig();
-  
+
   runApp(const MyApp());
 }
 
